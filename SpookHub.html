@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpookHub - Tienda</title>
+  <link rel="icon" type="image/png" href="SpookHub/ICON.png" />
+  <style>
+    :root {
+      --bg-dark: #121212;
+      --bg-card: #1c1c1c;
+      --bg-card-hover: #292929;
+      --accent: #ff4747;
+      --accent-hover: #ff1c1c;
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 10px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background-color: var(--bg-dark);
+      color: #fff;
+      line-height: 1.4;
+      font-size: 18px;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+    }
+    nav {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background: var(--bg-card);
+      padding: 12px 25px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      gap: 30px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo img {
+      height: 35px;
+      width: auto;
+    }
+    .logo h1 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .search-box {
+      flex: 1;
+      max-width: 400px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 15px;
+      border-radius: var(--radius-md);
+      border: none;
+      background: #2a2a2a;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+    }
+    .menu {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-left: auto;
+    }
+    .menu a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+    .menu a:hover {
+      color: var(--accent);
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+    .main {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      padding: 10px 0;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .hero {
+      position: relative;
+      background: #000;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      min-height: 450px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero img.hero-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: 1;
+    }
+.hero-content {
+  position: absolute;
+  top: 100px;          /* lo bajamos un poco */
+  left: 20px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  max-width: 400px;
+  font-size: 16px;    /* tamaño intermedio */
+  color: #fff;
+}
+
+.hero-content .hero-app-logo {
+  width: 100px;
+  margin-bottom: 12px;
+}
+
+.hero-content h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.actions button {
+  font-size: 16px;
+  padding: 10px 20px;
+}
+.btn-buy, .btn-remove, .modal button {
+  background: white;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-remove {
+  width: 40px;
+  height: 36px;
+  padding: 0;
+  font-size: 24px;
+  line-height: 24px;
+  text-align: center;
+}
+    .btn-buy {
+      background: #fff;
+      color: #000;
+      border: none;
+    }
+    .btn-wishlist {
+      background: transparent;
+      border: 1px solid #fff;
+      color: #fff;
+    }
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card);
+      padding: 10px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .sidebar-item:hover {
+      background: var(--bg-card-hover);
+    }
+    .sidebar-item img {
+      width: 40px;
+      height: auto;
+    }
+    .sidebar-item span {
+      font-size: 18px;
+    }
+    .discover {
+      padding: 10px 0 40px;
+    }
+    .discover h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+    .discover-cards {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+    }
+    .card-link {
+      text-decoration: none;
+      color: #fff;
+      display: block;
+    }
+    .card {
+      min-width: 200px;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 10px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .card:hover {
+      background: var(--bg-card-hover);
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      background: #000;
+    }
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .card-price {
+      font-size: 16px;
+      color: #ccc;
+    }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .modal {
+      background: var(--bg-card);
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      width: min(90%, 600px);
+      max-height: 80vh;
+      overflow-y: auto;
+      color: white;
+    }
+    .modal h2 {
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+    .modal ul {
+      list-style: none;
+      padding: 0;
+    }
+    .modal ul li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 10px 0;
+      background: #1a1a1a;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    .modal button {
+      margin-top: 15px;
+      background: var(--accent);
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #notification {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #1c1c1c;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 8px;
+      gap: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 3000;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    }
+    .hero-fade {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">
+    <img src="SpookHub/ICON.png" alt="Logo" />
+    <h1>SpookHub</h1>
+  </div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Buscar en la tienda" oninput="handleSearch()" />
+  </div>
+  <div class="menu">
+    <a href="#" onclick="alert('Noticias próximamente');return false;">Noticias</a>
+    <a href="#" onclick="openWishlist();return false;">Lista de deseos</a>
+    <a href="#" onclick="alert('Carrito próximamente');return false;">Carrito</a>
+  </div>
+</nav>
+
+<!-- MODAL LISTA DE DESEOS -->
+<div id="wishlistModal" class="modal-overlay">
+  <div class="modal">
+    <h2>Tu lista de deseos</h2>
+    <ul id="wishlistItems"></ul>
+    <button onclick="closeWishlist()">Cerrar</button>
+  </div>
+</div>
+
+<!-- NOTIFICACIÓN -->
+<div id="notification">
+  <img src="data:image/png;base64,{{ICON_BASE64}}" alt="icon" style="width:24px;height:24px;" />
+  <span id="notifText">Item agregado</span>
+</div>
+
+<!-- CONTENIDO -->
+<div class="container">
+  <div class="main">
+    <div id="hero" class="hero">
+      <img class="hero-img" src="SpookHub/PREVIEW1.png" alt="Hero" />
+      <div class="hero-content">
+        <img src="SpookHub/Page.png" alt="App icon" class="hero-app-logo" id="heroLogo" />
+        <h2 id="heroTitle">ClinBoost</h2>
+        <p id="heroDesc">Optimiza tu PC al máximo con ClinBoost.</p>
+        <div id="heroPrice" class="price">0,00 US$</div>
+        <div class="actions">
+          <button class="btn-buy" onclick="goToApp('clinboost')">Comprar ahora</button>
+          <button class="btn-wishlist" onclick="addToWishlist('ClinBoost', 'SpookHub/CLINBOOST.png')">+ Lista de deseos</button>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar" id="sidebarList"></div>
+  </div>
+
+  <!-- DESCUBRIR -->
+  <div class="discover">
+    <h2>Descubre algo nuevo</h2>
+    <div class="discover-cards" id="discoverList"></div>
+  </div>
+</div>
+
+<script>
+const APPS = [
+  {
+    id: 'clinboost',
+    name: 'ClinBoost',
+    desc: 'Optimiza tu PC al máximo con ClinBoost.',
+    price: '0,00 US$',
+    imgSmall: 'SpookHub/CLINBOOST.png',
+    imgHero: 'SpookHub/PREVIEW1.png',
+    logo: 'SpookHub/CLINBOOST.png',
+    url: 'https://clinpr1.github.io/Spook/ClinBoost.html'
+  },
+  {
+    id: 'coreactivator',
+    name: 'CoreActivator',
+    desc: 'Activa Windows de forma gratuita',
+    price: '0,00 US$',
+    imgSmall: 'SpookHub/COREACTIVATOR.png',
+    imgHero: 'SpookHub/PREVIEW2.jpeg',
+    logo: 'SpookHub/COREACTIVATOR.png',
+    url: 'https://clinpr1.github.io/Spook/CoreActivator.html'
+  }
+];
+
+let currentIndex = 0;
+
+function loadHero(app) {
+  const hero = document.getElementById('hero');
+  hero.classList.remove('hero-fade');
+  void hero.offsetWidth;
+  hero.classList.add('hero-fade');
+
+  document.querySelector('.hero-img').src = app.imgHero;
+  document.getElementById('heroLogo').src = app.logo;
+  document.getElementById('heroTitle').textContent = app.name;
+  document.getElementById('heroDesc').textContent = app.desc;
+  document.getElementById('heroPrice').textContent = app.price;
+
+  document.querySelector('.btn-buy').onclick = () => goToApp(app.id);
+  document.querySelector('.btn-wishlist').onclick = () => addToWishlist(app.name, app.logo);
+}
+
+function rotateApps() {
+  currentIndex = (currentIndex + 1) % APPS.length;
+  loadHero(APPS[currentIndex]);
+}
+setInterval(rotateApps, 10000);
+
+function buildSidebar() {
+  const cont = document.getElementById('sidebarList');
+  cont.innerHTML = '';
+  APPS.forEach(app => {
+    const div = document.createElement('div');
+    div.className = 'sidebar-item';
+    div.onclick = () => loadHero(app);
+    div.innerHTML = `<img src="${app.imgSmall}" alt="${app.name}" width="40"><span>${app.name}</span>`;
+    cont.appendChild(div);
+  });
+}
+
+function buildDiscover() {
+  const cont = document.getElementById('discoverList');
+  cont.innerHTML = '';
+  APPS.forEach(app => {
+    const a = document.createElement('a');
+    a.href = app.url;
+    a.target = "_blank";
+    a.className = 'card-link';
+    a.innerHTML = `<div class="card"><img src="${app.imgSmall}" alt="${app.name}"><h3>${app.name}</h3><div class="card-price">${app.price}</div></div>`;
+    cont.appendChild(a);
+  });
+}
+
+function getWishlist() {
+  try {
+    return JSON.parse(localStorage.getItem('spookhub_wishlist') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveWishlist(list) {
+  localStorage.setItem('spookhub_wishlist', JSON.stringify(list));
+}
+
+function addToWishlist(appName, iconUrl) {
+  let list = getWishlist();
+  if (!list.includes(appName)) {
+    list.push(appName);
+    saveWishlist(list);
+    showNotification(appName + ' agregado a la lista de deseos', iconUrl);
+  }
+}
+
+function showNotification(text, icon) {
+  const notif = document.getElementById('notification');
+  document.getElementById('notifText').textContent = text;
+  if (icon) {
+    notif.querySelector('img').src = icon;
+  }
+  notif.style.opacity = '1';
+  setTimeout(() => {
+    notif.style.opacity = '0';
+  }, 3000);
+}
+
+function openWishlist() {
+  const list = getWishlist();
+  const ul = document.getElementById('wishlistItems');
+  if (list.length === 0) {
+    ul.innerHTML = '<li>(Vacía)</li>';
+  } else {
+    ul.innerHTML = list.map(appName => {
+      const app = APPS.find(a => a.name === appName);
+      if (!app) return '';
+
+      return `
+        <li style="display:flex; align-items:center; gap:10px; margin-bottom: 10px;">
+          <img src="${app.imgSmall}" width="32" alt="${app.name}" />
+          <span style="flex:1;">${app.name} - <strong>${app.price}</strong></span>
+          <button class="btn-buy" onclick="goToApp('${app.id}')">Comprar</button>
+          <button class="btn-remove" onclick="removeFromWishlist('${app.name}')">-</button>
+        </li>
+      `;
+    }).join('');
+  }
+  document.getElementById('wishlistModal').style.display = 'flex';
+}
+
+function removeFromWishlist(appName) {
+  let list = getWishlist();
+  list = list.filter(name => name !== appName);
+  saveWishlist(list);
+  openWishlist(); // refresca la lista
+  showNotification(appName + ' eliminado de la lista de deseos', null);
+}
+
+function closeWishlist() {
+  document.getElementById('wishlistModal').style.display = 'none';
+}
+
+function goToApp(id) {
+  const app = APPS.find(a => a.id === id);
+  if (app) window.open(app.url, '_blank');
+}
+
+function handleSearch() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  document.querySelectorAll('#sidebarList .sidebar-item').forEach((el, idx) => {
+    const app = APPS[idx];
+    el.style.display = app.name.toLowerCase().includes(q) ? 'flex' : 'none';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildSidebar();
+  buildDiscover();
+  loadHero(APPS[0]);
+});
+</script>
+</body>
+</html>
