@@ -401,9 +401,19 @@ const APPS = [
     url: 'https://clinpr1.github.io/Spook/ClinBoost.html'
   },
   {
+    id: 'undex',
+    name: 'Undex',
+    desc: 'Competitive Cheat for CS2',
+    price: '0,00 US$',
+    imgSmall: 'SpookHub/UNDEX.png',
+    imgHero: 'SpookHub/UNDEX.png',
+    logo: 'SpookHub/UNDEX.png',
+    url: 'https://clinpr1.github.io/Spook/Undex.html'
+  },
+  {
     id: 'coreactivator',
     name: 'CoreActivator',
-    desc: 'Activa Windows de forma gratuita',
+    desc: 'Activa Windows de forma gratuita.',
     price: '0,00 US$',
     imgSmall: 'SpookHub/COREACTIVATOR.png',
     imgHero: 'SpookHub/PREVIEW2.jpeg',
@@ -431,21 +441,22 @@ function loadHero(app) {
 }
 
 function rotateApps() {
-  currentIndex = (currentIndex + 1) % APPS.length;
-  loadHero(APPS[currentIndex]);
+  const heroApps = APPS.filter(app => app.id !== 'undex'); // excluye Undex
+  currentIndex = (currentIndex + 1) % heroApps.length;
+  loadHero(heroApps[currentIndex]);
 }
 setInterval(rotateApps, 10000);
 
 function buildSidebar() {
   const cont = document.getElementById('sidebarList');
   cont.innerHTML = '';
-  APPS.forEach(app => {
-    const div = document.createElement('div');
-    div.className = 'sidebar-item';
-    div.onclick = () => loadHero(app);
-    div.innerHTML = `<img src="${app.imgSmall}" alt="${app.name}" width="40"><span>${app.name}</span>`;
-    cont.appendChild(div);
-  });
+APPS.filter(app => app.id !== 'undex').forEach(app => {
+  const div = document.createElement('div');
+  div.className = 'sidebar-item';
+  div.onclick = () => loadHero(app);
+  div.innerHTML = `<img src="${app.imgSmall}" alt="${app.name}" width="40"><span>${app.name}</span>`;
+  cont.appendChild(div);
+});
 }
 
 function buildDiscover() {
