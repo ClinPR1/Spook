@@ -1,0 +1,156 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undex</title>
+  <link rel="icon" type="image/png" href="SpookHub/ICON.png" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --pink:#ff6d75; /* CTA/outline */
+      --text:#ffffff;
+      --muted:#cfd2d6;
+      --header-bg:rgba(18,19,23,.55);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:url('Undex/BACKGROUND.png') center/cover no-repeat fixed;
+      position:relative;
+    }
+    body:before{
+      content:"";position:fixed;inset:0;pointer-events:none;
+      background:linear-gradient(180deg, rgba(10,11,14,.65) 0%, rgba(10,11,14,.35) 30%, rgba(10,11,14,.55) 100%);
+    }
+    body:after{
+      content:"";position:fixed;left:0;right:0;bottom:0;height:140px;pointer-events:none;
+      background:linear-gradient( to top, rgba(10,11,14,.85), rgba(10,11,14,0) );
+      transform:skewY(-3deg) translateY(40px);
+      transform-origin:left bottom;
+    }
+
+    .container{width:100%;max-width:1200px;margin:0 auto;padding:0 32px}
+
+    header{
+      position:sticky;top:0;z-index:10;
+      background:var(--header-bg);
+      backdrop-filter:saturate(120%) blur(6px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex;align-items:center;gap:28px;height:82px}
+    .logo{height:56px;width:auto;display:block}
+    .nav-links{display:flex;align-items:center;gap:26px;margin-left:24px}
+    .nav-links a{
+      text-decoration:none;color:#fff;font-weight:600;font-size:14px;letter-spacing:.2px;
+      text-transform:uppercase;opacity:.92;cursor:pointer;
+    }
+    .nav-links a.dd:after{content:"▾";font-size:12px;margin-left:6px;opacity:.8}
+
+    .spacer{flex:1}
+
+    .buy-btn{border:2px solid var(--pink);color:var(--pink);text-decoration:none;padding:10px 16px;border-radius:8px;font-weight:700;font-size:14px;letter-spacing:.3px}
+    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:2px solid rgba(255,255,255,.35);border-radius:8px;margin-left:14px;text-decoration:none;color:#fff;font-weight:700}
+    .cart-pill{display:inline-flex;align-items:center;gap:8px;border:2px solid rgba(255,255,255,.35);border-radius:10px;padding:9px 12px;font-weight:700;font-size:14px;margin-left:14px;text-decoration:none;color:#fff}
+
+    .hero{position:relative}
+    .hero-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:78px 0}
+
+    h1.hero-title{
+      font-family:Montserrat, Inter, Arial, sans-serif;
+      font-weight:800;text-transform:uppercase;letter-spacing:.6px;line-height:1.05;
+      font-size: clamp(36px, 4.6vw, 58px);
+      text-shadow:0 2px 0 rgba(0,0,0,.25);
+      margin-bottom:18px;
+    }
+    .lead{color:var(--muted);font-size:18px;line-height:1.7;max-width:640px;margin-bottom:26px}
+    .lead b{color:#fff}
+
+    .cta-stack{width:min(520px,100%)}
+    .cta-primary{display:block;width:100%;text-align:center;background:var(--pink);color:#111;padding:14px 18px;border-radius:6px;text-decoration:none;font-weight:800;font-size:15px;letter-spacing:.4px;margin-bottom:16px;cursor:pointer}
+    .cta-row a{display:block;text-align:center;background:transparent;border:2px solid var(--pink);color:#fff;padding:12px 14px;border-radius:6px;text-decoration:none;font-weight:800;font-size:14px}
+    .cta-row a:hover{background:var(--pink);color:#111}
+
+    .panel{position:relative;justify-self:end}
+    .panel img{
+      width:min(560px,100%);
+      border-radius:10px;
+      box-shadow:0 24px 60px rgba(0,0,0,.55);
+      transition: transform 0.15s ease-out;
+      transform-style: preserve-3d;
+      will-change: transform;
+      cursor: grab;
+    }
+
+    @media (max-width: 980px){
+      .nav-links{display:none}
+      .hero-wrap{grid-template-columns:1fr;gap:28px;padding:56px 0}
+      .panel{justify-self:start}
+      .panel img{transform:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <img class="logo" src="SpookHub/ICON.png" alt="Logo">
+
+      <nav class="nav-links">
+        <a class="dd" onclick="alert('PROXIMAMENTE')">CHEATS</a>
+        <a class="dd" onclick="alert('PROXIMAMENTE')">FEATURES</a>
+        <a onclick="alert('PROXIMAMENTE')">GALLERY</a>
+        <a href="https://discord.gg/pdeeGJTZyD" target="_blank">DISCORD</a>
+      </nav>
+
+      <div class="spacer"></div>
+
+      <a class="buy-btn" href="https://modsfire.com/a9d0D220qv17u6i" target="_blank">BUY NOW</a>
+      <a class="icon-btn" aria-label="Account" href="#">👤</a>
+      <a class="cart-pill" href="#">€0.00 <span>🛒</span></a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div class="left">
+        <h1 class="hero-title">CS2 CHEATS</h1>
+        <p class="lead">
+          Welcome to Undex Cheats, your go-to source for powerful and undetected <b>CS2 cheats</b>. From aimbots and wallhacks to skin changers and ESP, our hacks are designed to help you dominate <b>Counter-Strike 2</b> with ease. Trusted by thousands of players, our cheats deliver seamless performance and unbeatable reliability.
+        </p>
+        <div class="cta-stack">
+          <a class="cta-primary" onclick="alert('PROXIMAMENTE')">COUNTER-STRIKE 2 CHEATS</a>
+          <div class="cta-row">
+            <a href="https://modsfire.com/a9d0D220qv17u6i" target="_blank">BUY UNDEX</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <img src="Undex/PANEL.png" alt="Panel preview">
+      </div>
+    </div>
+  </section>
+
+  <!-- Script para rotación -->
+  <script>
+    const panelImg = document.querySelector(".panel img");
+    const rotateIntensity = 20; 
+
+    document.addEventListener("mousemove", (e) => {
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX / innerWidth - 0.5) * 2; 
+      const y = (e.clientY / innerHeight - 0.5) * 2; 
+      panelImg.style.transform = `perspective(1600px) rotateY(${x * rotateIntensity}deg) rotateX(${-y * rotateIntensity}deg)`;
+    });
+
+    document.addEventListener("mouseleave", () => {
+      panelImg.style.transform = "perspective(1600px) rotateY(0deg) rotateX(0deg)";
+    });
+  </script>
+</body>
+</html>
