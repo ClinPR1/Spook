@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ClinBoost</title>
+  <link rel="icon" type="image/png" href="icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #000814;
+      color: white;
+      text-align: center;
+      --x: 0;
+      --y: 0;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: var(--y);
+      left: var(--x);
+      width: 250px;
+      height: 250px;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(62, 139, 255, 0.15) 0%, transparent 80%);
+      transform: translate(-50%, -50%) scale(1);
+      border-radius: 50%;
+      z-index: 9999;
+      filter: blur(15px);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: #001d3d;
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #3ca6ff;
+      user-select: none;
+    }
+
+    .logo img {
+      height: 90px;
+      margin-right: -21px;
+      transform: translateY(2px);
+    }
+
+    button:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .section-title {
+      margin-top: 30px;
+      color: #5ebeff;
+      font-size: 2em;
+      font-weight: 600;
+    }
+
+    .fps-bars {
+      width: 80%;
+      max-width: 800px;
+      margin: 20px auto;
+      text-align: left;
+    }
+
+    .bar-container {
+      margin-bottom: 20px;
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 25px;
+      background: #2e2e4d;
+      border-radius: 12.5px;
+      overflow: hidden;
+      margin-top: 5px;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0;
+      border-radius: 12.5px;
+      transition: width 0.3s ease;
+    }
+
+    .before {
+      background: #3ca6ff;
+    }
+
+    .after {
+      background: #003f8a;
+    }
+
+    .bar-container span {
+      font-weight: 600;
+      color: #bbb;
+      font-size: 1.2em;
+    }
+
+    .utility-title {
+      margin-top: 60px;
+      font-size: 2em;
+      color: #5ebeff;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px 60px;
+      padding: 0 40px 40px 40px;
+      max-width: 900px;
+      margin: auto;
+      justify-items: center;
+    }
+
+    .card {
+      background-color: #001223;
+      border-radius: 12px;
+      padding: 25px;
+      color: #ddd;
+      text-align: left;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px #003355 inset;
+      max-width: 280px;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 25px #003355, 0 0 30px #1e90ff;
+    }
+
+    .card .icon {
+      font-size: 1.5em;
+      margin-right: 10px;
+      color: #5ebeff;
+    }
+
+    .card-title {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .card p {
+      margin: 0;
+      color: #ccc;
+      font-size: 0.95em;
+    }
+
+    .unlock-btn {
+      margin: 40px auto;
+      background-color: #3ca6ff;
+      color: #5ebeff;
+      border: none;
+      padding: 12px 35px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.6em;
+      font-weight: 600;
+      display: block;
+      max-width: 320px;
+      width: 90%;
+      transition: background-color 0.3s ease;
+    }
+
+    .unlock-btn:hover {
+      background-color: #2b8de3;
+      color: #b3d8ff;
+    }
+
+    .screenshot-wrapper {
+      margin-top: 50px;
+      margin-bottom: 30px;
+    }
+
+    .screenshot-rounded {
+      border-radius: 25px;
+      box-shadow:
+        0 0 35px rgba(62, 139, 255, 0.7),
+        0 0 60px rgba(62, 139, 255, 0.5);
+      max-width: 90%;
+      height: auto;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 20px;
+      background: #001223;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    .footer-icons a {
+      color: #3ca6ff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 1.2em;
+      transition: color 0.3s ease;
+    }
+
+    .footer-icons a:hover {
+      color: #1e90ff;
+    }
+
+    .footer-icons {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="Page.png" alt="Logo C" />
+      linBoost
+    </div>
+  </header>
+
+  <!-- Imagen añadida arriba del título -->
+  <div class="screenshot-wrapper">
+    <img src="Screenshot.png" alt="Screenshot" class="screenshot-rounded" />
+  </div>
+
+  <div class="section-title">See the difference</div>
+
+  <div class="fps-bars">
+    <div class="bar-container">
+      <span>Before: <span id="before-fps-bar-text">0</span> FPS</span>
+      <div class="bar-bg">
+        <div id="before-fps-bar" class="bar before"></div>
+      </div>
+    </div>
+    <div class="bar-container">
+      <span>After: <span id="after-fps-bar-text">0</span> FPS</span>
+      <div class="bar-bg">
+        <div id="after-fps-bar" class="bar after"></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="utility-title">All-In-One Utility</h2>
+
+  <div class="cards" id="utility-cards">
+    <div class="card"><div class="card-title"><i class="fas fa-gamepad icon"></i> General Tweaks</div><p>Dozens of optimizations to enhance overall system performance.</p></div>
+    <div class="card"><div class="card-title"><i class="fas fa-bolt icon"></i> Latency Optimization</div><p>Reduce input lag and system response times for a smoother experience.</p></div>
+    <div class="card"><div class="card-title"><i class="fas fa-globe icon"></i> Network Enhancements</div><p>Optimize your network settings for lower ping and better connectivity.</p></div>
+    <div class="card"><div class="card-title"><i class="fas fa-broom icon"></i> Debloat Utility</div><p>Remove unwanted bloatware and organize your system for peak performance.</p></div>
+    <div class="card"><div class="card-title"><i class="fas fa-battery-three-quarters icon"></i> Power Plan Configurator</div><p>Create and apply custom power plans to balance performance and energy efficiency.</p></div>
+    <div class="card"><div class="card-title"><i class="fas fa-trash-alt icon"></i> System Cleaner</div><p>Remove unnecessary files and optimize storage for improved system responsiveness.</p></div>
+    <div class="card"><div class="card-title"><i class="fas fa-rocket icon"></i> Startup Configurator</div><p>Manage and optimize startup programs for faster boot times and improved efficiency.</p></div>
+  </div>
+
+  <button class="unlock-btn" onclick="window.location.href='https://modsfire.com/hrusKA4Z61kX9J4'">
+  Unlock Full Optimization (Pre-Release)
+</button>
+
+  <footer>
+    <div class="footer-icons">
+      <a href="https://discord.gg/pdeeGJTZyD" target="_blank"><i class="fab fa-discord"></i></a>
+      <a href="https://x.com/ClinLabOFFICIAL" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="#" onclick="alert('Contact us at: fluxaracl@gmail.com')"><i class="fas fa-envelope"></i></a>
+    </div>
+    <div>© 2025 ClinBoost. All rights reserved.</div>
+    <div>Terms of Service | Privacy Policy</div>
+  </footer>
+
+  <script>
+    const beforeBar = document.getElementById('before-fps-bar');
+    const afterBar = document.getElementById('after-fps-bar');
+    const beforeText = document.getElementById('before-fps-bar-text');
+    const afterText = document.getElementById('after-fps-bar-text');
+
+    function updateBars() {
+      const before = Math.floor(Math.random() * (63 - 55 + 1)) + 55;
+      const after = Math.floor(Math.random() * (95 - 87 + 1)) + 87;
+
+      beforeText.textContent = before;
+      afterText.textContent = after;
+
+      beforeBar.style.width = before + '%';
+      afterBar.style.width = after + '%';
+    }
+
+    setInterval(updateBars, 300);
+    updateBars();
+
+    window.addEventListener("mousemove", (e) => {
+      document.body.style.setProperty("--x", `${e.clientX}px`);
+      document.body.style.setProperty("--y", `${e.clientY}px`);
+    });
+  </script>
+</body>
+</html>
